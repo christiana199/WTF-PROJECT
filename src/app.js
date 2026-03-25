@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
+const sequelize = require("./src/config/connection"); // Import your Postgres connection
 
 const authRoutes = require("./routes/authRoute");
 const readinessRoutes = require("./routes/readinessRoute");
@@ -12,6 +13,18 @@ const app = express();
 app.use(cors());
 app.use(helmet());
 app.use(express.json());
+
+// =========================
+// DATABASE SYNC
+// =========================
+// This creates the tables in PostgreSQL if they don't exist
+sequelize.sync({ alter: true }) 
+  .then(() => {
+    console.log("PostgreSQL tables synced successfully");
+  })
+  .catch((err) => {
+    console.error("Failed to sync database:", err);
+  });
 
 // =========================
 // ROUTES
