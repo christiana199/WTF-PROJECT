@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
-const sequelize = require("./src/config/connection"); // Import your Postgres connection
+const sequelize = require("./config/connection"); // Import your Postgres connection
 
 const authRoutes = require("./routes/authRoute");
 const readinessRoutes = require("./routes/readinessRoute");
